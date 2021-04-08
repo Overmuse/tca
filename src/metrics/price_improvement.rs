@@ -13,12 +13,12 @@ pub fn price_improvement(quote: &Quote, side: &Side, fill_price: f64) -> Result<
     let bid_price = quote
         .bid_quote
         .as_ref()
-        .ok_or(anyhow!("Missing bid quote"))?
+        .ok_or_else(|| anyhow!("Missing bid quote"))?
         .price;
     let ask_price = quote
         .ask_quote
         .as_ref()
-        .ok_or(anyhow!("Missing ask quote"))?
+        .ok_or_else(|| anyhow!("Missing ask quote"))?
         .price;
     let res = match side {
         Side::Buy => PriceImprovement {

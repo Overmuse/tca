@@ -16,7 +16,7 @@ pub use settings::Settings;
 pub enum TcaInput {
     Quote(Quote),
     // TODO: We should be able to deserialize just an OrderEvent here.
-    AlpacaMessage(AlpacaMessage),
+    AlpacaMessage(Box<AlpacaMessage>),
 }
 
 #[derive(Serialize, Debug)]
@@ -68,20 +68,22 @@ impl StreamProcessor for TransactionCostAnalyzer {
                 Ok(None)
             }
             TcaInput::AlpacaMessage(msg) => {
-                if let AlpacaMessage::TradeUpdates(order) = msg {
+                if let AlpacaMessage::TradeUpdates(order) = *msg {
                     // TODO: Maybe we can do something smart with partial fills as well
                     if let Event::Fill { price, .. } = order.event {
                         let trade = order.order;
                         let client_order_id = trade
                             .client_order_id
                             .as_ref()
-                            .ok_or(anyhow!("Missing client_order_id"))?;
+                            .ok_or_else(|| anyhow!("Missing client_order_id"))?;
                         let execution_speed = TcaOutput {
                             metric: TcaMetric::ExecutionSpeed(execution_speed(&trade)?),
                             client_order_id: client_order_id.to_string(),
                         };
                         let guard = self.last_quote.lock().expect("Lock poisoned");
-                        let quote = guard.get(&trade.symbol).ok_or(anyhow!("No last quote"))?;
+                        let quote = guard
+                            .get(&trade.symbol)
+                            .ok_or_else(|| anyhow!("No last quote"))?;
                         let price_improvement = TcaOutput {
                             metric: TcaMetric::PriceImprovement(price_improvement(
                                 quote,

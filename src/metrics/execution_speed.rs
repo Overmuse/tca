@@ -13,10 +13,12 @@ pub fn execution_speed(order: &Order) -> Result<ExecutionSpeed> {
             "Execution speed can't be calculated for unfilled order"
         ));
     }
-    let speed = order.filled_at.ok_or(anyhow!("Missing filled_at value"))?
+    let speed = order
+        .filled_at
+        .ok_or_else(|| anyhow!("Missing filled_at value"))?
         - order
             .submitted_at
-            .ok_or(anyhow!("Missing submitted_at value"))?;
+            .ok_or_else(|| anyhow!("Missing submitted_at value"))?;
     let micros = speed.num_microseconds().expect("Should work") as u32;
     Ok(ExecutionSpeed { micros })
 }
