@@ -1,13 +1,13 @@
 [package]
 name = "tca"
-version = "0.1.0"
+version = "0.1.1"
 authors = ["Sebastian Rollen <seb@overmu.se>"]
 edition = "2018"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-alpaca = { git = "ssh://git@github.com/Overmuse/alpaca", tag = "v0.5.1" }
+alpaca = { git = "ssh://git@github.com/Overmuse/alpaca", tag = "v0.6.0" }
 anyhow = "1.0.40"
 async-trait = "0.1.48"
 chrono = { version = "0.4.19", features = ["serde"] }

@@ -72,13 +72,9 @@ impl StreamProcessor for TransactionCostAnalyzer {
                     // TODO: Maybe we can do something smart with partial fills as well
                     if let Event::Fill { price, .. } = order.event {
                         let trade = order.order;
-                        let client_order_id = trade
-                            .client_order_id
-                            .as_ref()
-                            .ok_or_else(|| anyhow!("Missing client_order_id"))?;
                         let execution_speed = TcaOutput {
                             metric: TcaMetric::ExecutionSpeed(execution_speed(&trade)?),
-                            client_order_id: client_order_id.to_string(),
+                            client_order_id: trade.client_order_id.clone(),
                         };
                         let guard = self.last_quote.lock().expect("Lock poisoned");
                         let quote = guard
@@ -90,7 +86,7 @@ impl StreamProcessor for TransactionCostAnalyzer {
                                 &trade.side,
                                 price,
                             )?),
-                            client_order_id: client_order_id.to_string(),
+                            client_order_id: trade.client_order_id,
                         };
                         Ok(Some(vec![execution_speed, price_improvement]))
                     } else {
