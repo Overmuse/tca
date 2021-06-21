@@ -12,5 +12,12 @@ async fn main() -> Result<()> {
         .finish();
     set_global_default(subscriber).expect("Failed to set subscriber");
     let settings = Settings::new()?;
+    let _guard = sentry::init((
+        settings.sentry.address.clone(),
+        sentry::ClientOptions {
+            release: sentry::release_name!(),
+            ..Default::default()
+        },
+    ));
     run(settings).await
 }
