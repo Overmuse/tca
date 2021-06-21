@@ -3,7 +3,13 @@ use kafka_settings::KafkaSettings;
 use serde::Deserialize;
 
 #[derive(Debug, Deserialize)]
+pub struct SentrySettings {
+    pub address: String,
+}
+
+#[derive(Debug, Deserialize)]
 pub struct Settings {
+    pub sentry: SentrySettings,
     pub kafka: KafkaSettings,
 }
 
