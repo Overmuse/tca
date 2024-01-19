@@ -402,9 +402,9 @@ checksum = "f6503fe142514ca4799d4c26297c4248239fe8838d827db6bd6065c6ed29a6ce"
 
 [[package]]
 name = "h2"
-version = "0.3.2"
+version = "0.3.21"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "fc018e188373e2777d0ef2467ebff62a08e66c3f5857b23c8fbec3018210dc00"
+checksum = "91fc23aa11be92976ef4729127f1a74adf36d8436f7816b185d18df956790833"
 dependencies = [
  "bytes",
  "fnv",
@@ -1472,7 +1472,7 @@ source = "git+ssh://git@github.com/Overmuse/stream-processor?tag=v0.2.1#ea661616
 dependencies = [
  "async-trait",
  "futures",
- "kafka-settings",
+ "kafka-settings 0.2.2 (git+ssh://git@github.com/Overmuse/kafka-settings?tag=v0.2.2)",
  "rdkafka",
  "serde 1.0.125",
  "serde_json",
@@ -1501,7 +1501,7 @@ dependencies = [
  "chrono",
  "config",
  "dotenv",
- "kafka-settings",
+ "kafka-settings 0.2.2 (git+ssh://git@github.com/Overmuse/kafka-settings?tag=v0.2.2)",
  "polygon",
  "rust_decimal",
  "sentry",
@@ -1585,11 +1585,10 @@ checksum = "cda74da7e1a664f795bb1f8a87ec406fb89a02522cf6e50620d016add6dbbf5c"
 
 [[package]]
 name = "tokio"
-version = "1.5.0"
+version = "1.16.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "83f0c8e7c0addab50b663055baf787d0af7f413a46e6e7fb9559a4e4db7137a5"
+checksum = "0c27a64b625de6d309e8c57716ba93021dccf1b3b5c97edd6d3dd2d2135afc0a"
 dependencies = [
- "autocfg",
  "bytes",
  "libc",
  "memchr",
@@ -1597,13 +1596,14 @@ dependencies = [
  "num_cpus",
  "pin-project-lite",
  "tokio-macros",
+ "winapi",
 ]
 
 [[package]]
 name = "tokio-macros"
-version = "1.1.0"
+version = "1.8.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "caf7b11a536f46a809a8a9f0bb4237020f70ecbf115b842360afb127ea2fda57"
+checksum = "d266c00fde287f55d3f1c3e96c500c362a2b8c695076ec180f27918820bc6df8"
 dependencies = [
  "proc-macro2",
  "quote",
@@ -1650,16 +1650,16 @@ dependencies = [
 
 [[package]]
 name = "tokio-util"
-version = "0.6.6"
+version = "0.7.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "940a12c99365c31ea8dd9ba04ec1be183ffe4920102bb7122c2f515437601e8e"
+checksum = "f988a1a1adc2fb21f9c12aa96441da33a1728193ae0b95d2be22dbd17fcb4e5c"
 dependencies = [
  "bytes",
  "futures-core",
  "futures-sink",
- "log",
  "pin-project-lite",
  "tokio",
+ "tracing",
 ]
 
 [[package]]
